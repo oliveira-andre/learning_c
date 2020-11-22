@@ -2,23 +2,29 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct person {
+typedef struct person {
   int age;
   char name[51];
-};
+} s_person;
 
 int main() {
-  struct person p1;
-  struct person p2;
+  s_person p[5];
+  int i;
 
-  p1.age = 18;
-  strcpy(p1.name, "Test");
+  for (i = 0; i < 5; i++) {
+    printf("type the name and age: ");
+    scanf("%s %d", p[i].name, &p[i].age);
+  }
 
-  p2.age = 40;
-  strcpy(p2.name, "Old Test");
+  s_person p_aux = p[0];
 
-  printf("Name: %s | Age: %d\n", p1.name, p1.age);
-  printf("Name: %s | Age: %d\n", p2.name, p2.age);
+  for (i = 1; i < 5; i++) {
+    if (p_aux.age < p[i].age) {
+      p_aux = p[i];
+    }
+  }
+
+  printf("Name: %s | Age: %d\n", p_aux.name, p_aux.age);
 
   return 0;
 }
