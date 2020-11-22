@@ -83,6 +83,20 @@ int validateBoard(char board[3][3], char player) {
   return 0;
 }
 
+int validateTie(char board[3][3]) {
+  int i,j;
+
+  for (i = 0; i < 3; i++) {
+    for (j = 0; i < 3; i++) {
+      if (board[i][j] == ' ') {
+        return 0;
+      }
+    }
+  }
+
+  return 1;
+}
+
 int main() {
   char board[3][3];
   char c1 = 'X';
@@ -100,8 +114,13 @@ int main() {
       printf("the player %c win the game!\n", player);
       break;
     } else {
-      if (player == c1) player = c2;
-      else player = c1;
+      if (validateTie(board) == 1) {
+        printf("Tie Game\n");
+        break;
+      } else {
+        if (player == c1) player = c2;
+        else player = c1;
+      }
     }
   }
 
