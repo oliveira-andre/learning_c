@@ -45,6 +45,44 @@ void currentTurn(char board[3][3], char player) {
   }
 }
 
+int validateBoard(char board[3][3], char player) {
+  int i, j;
+
+  for (i = 0; i < 3; i++) {
+    if (board[i][0] != ' ' &&
+        board[i][0] == board[i][1] &&
+        board[i][1] == board[i][2]) {
+
+      return 1;
+    }
+  }
+
+  for (j = 0; j < 3; j++) {
+    if (board[0][j] != ' ' &&
+        board[0][j] == board[1][j] &&
+        board[1][j] == board[2][j]) {
+
+      return 1;
+    }
+  }
+
+  if (board[0][0] != ' ' &&
+      board[0][0] == board[1][1] &&
+      board[1][1] == board[2][2]) {
+
+    return 1;
+  }
+
+  if (board[0][2] != ' ' &&
+      board[0][2] == board[1][1] &&
+      board[1][1] == board[2][0]) {
+
+    return 1;
+  }
+
+  return 0;
+}
+
 int main() {
   char board[3][3];
   char c1 = 'X';
@@ -56,12 +94,17 @@ int main() {
 
   while (1) {
     currentTurn(board, player);
-
-    if (player == c1) player = c2;
-    else player = c1;
-
     showBoard(board);
+
+    if (validateBoard(board, player) == 1) {
+      printf("the player %c win the game!\n", player);
+      break;
+    } else {
+      if (player == c1) player = c2;
+      else player = c1;
+    }
   }
 
+  printf("Game Over\n");
   return 0;
 }
